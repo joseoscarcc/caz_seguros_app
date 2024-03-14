@@ -1,8 +1,23 @@
 import Image from 'next/image'
-import React from 'react'
 import Button from "@/components/Button";
+import React, {useEffect, useState} from 'react'
 
 const Hero = () => {
+  const [marca, setMarca] = useState([{}])
+
+  useEffect(()=> {
+    fetch("/api/cotizador").then(
+      response => response.json()
+    ).then(
+      data => {
+        // Assuming data is an object with a key "marca" containing an array of strings
+        const marcasArray = data.marca;
+        const randomMarca = marcasArray[Math.floor(Math.random() * marcasArray.length)];
+        setMarca(randomMarca);
+      }
+    )
+  }, [])
+  
   return (
     <section className="max-container pading-container flex flex-col gap-20 py-10 pb-3 md:gap-28 lg:py-20 xl:flex-row">
       <div className='hero-map'/>
@@ -62,7 +77,7 @@ const Hero = () => {
               <div className='flexBetween'>
                 <div className='flex flex-col'>
                   <p className='regular-16 text-gray-20'>Marca</p>
-                  <p className='bold-20 text-white'>Ford</p>
+                  <p className='bold-20 text-white'>{marca}</p>
                 </div>
                 <div className='flex flex-col'>
                   <p className='regular-16 text-gray-20'>Año</p>

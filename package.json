@@ -1,11 +1,12 @@
 {
   "name": "caz_seguros_app",
   "version": "0.1.0",
+  "proxy": "http://localhost:3050",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "set Port=3010 && next start",
     "lint": "next lint"
   },
   "dependencies": {
