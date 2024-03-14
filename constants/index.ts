@@ -78,9 +78,9 @@ export const NAV_LINKS = [
   export const SOCIALS = {
     title: 'Social',
     links: [
-      '/facebook.svg',
-      '/instagram.svg',
-      '/twitter.svg',
-      '/youtube.svg',
+      { platform: 'Facebook', url: 'https://www.facebook.com/joseoscarcota' },
+      { platform: 'Instagram', url: 'https://www.instagram.com/joseoscarcc' },
+      { platform: 'Twitter', url: 'https://twitter.com/joseoscarcc' },
+      { platform: 'YouTube', url: 'https://www.youtube.com/@segurosjoe' },
     ],
   };

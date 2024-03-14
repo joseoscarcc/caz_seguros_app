@@ -1,12 +1,14 @@
+'use client'
+
 import Image from 'next/image'
 import Button from "@/components/Button";
 import React, {useEffect, useState} from 'react'
 
 const Hero = () => {
-  const [marca, setMarca] = useState([{}])
+  const [marca, setMarca] = useState(""); // Initialize as an empty string
 
   useEffect(()=> {
-    fetch("/api/cotizador").then(
+    fetch("http://localhost:3050/api/marcas").then(
       response => response.json()
     ).then(
       data => {
@@ -77,7 +79,7 @@ const Hero = () => {
               <div className='flexBetween'>
                 <div className='flex flex-col'>
                   <p className='regular-16 text-gray-20'>Marca</p>
-                  <p className='bold-20 text-white'>{marca}</p>
+                  {marca ? <p className='bold-20 text-white'>{marca}</p> : <p>Loading...</p>}
                 </div>
                 <div className='flex flex-col'>
                   <p className='regular-16 text-gray-20'>Año</p>
