@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 
 const Cotizador = () => {
     const [nombre, setNombre] = useState('');
@@ -22,7 +22,7 @@ const Cotizador = () => {
             .catch(error => console.error('Error fetching marcas:', error));
     }, []);
 
-    const handleMarcaChange = async (selectedMarca) => {
+    const handleMarcaChange = async (selectedMarca: string) => {
         setMarca(selectedMarca); // Update Marca
         setModelos([]); // Reset Modelo
         setModeloDisabled(true); // Disable Modelo select input
@@ -39,7 +39,7 @@ const Cotizador = () => {
         }
     };
 
-    const handleYearChange = async (selectedYear) => {
+    const handleYearChange = async (selectedYear: string) => {
         setYear(selectedYear); // Update Year
         setModelos([]); // Reset Modelo
         setModeloDisabled(true); // Disable Modelo select input
@@ -57,7 +57,7 @@ const Cotizador = () => {
         }
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     
         const cotizacion = { nombre, correo, codigoPostal, tipoVehiculo, marca, year, modelo };
@@ -88,7 +88,15 @@ const Cotizador = () => {
         }
     };
     
-    function sendWhatsAppMessage(nombre, correo, codigoPostal, tipoVehiculo, marca, year, modelo) {
+    function sendWhatsAppMessage(
+        nombre: string,
+        correo: string,
+        codigoPostal: string,
+        tipoVehiculo: string,
+        marca: string,
+        year: string,
+        modelo: string
+      ) {
         const phonenumber = "+526421148476"; // Replace with your phone number
         
         const encodedName = encodeURIComponent(nombre);
@@ -103,7 +111,14 @@ const Cotizador = () => {
        
     
         console.log("Opening WhatsApp link:", url);
-        window.open(url, '_blank').focus();
+        // Check if 'window' object is available
+        if (typeof window !== 'undefined') {
+            // Open the WhatsApp message URL in a new tab
+            window.open(url, '_blank')?.focus(); // Use optional chaining to safely access focus()
+        } else {
+            // Handle the case when 'window' is not available (e.g., running in a non-browser environment)
+            console.error('Window object is not available.');
+        }
     }
 
     return (
