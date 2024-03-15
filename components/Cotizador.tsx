@@ -14,8 +14,8 @@ const Cotizador = () => {
     const [modelos, setModelos] = useState([]);
     const [modeloDisabled, setModeloDisabled] = useState(true); // Disable Modelo select input initially
 
-    const uri = process.env.URLSERVER;
-    
+    const uri = process.env.NEXT_PUBLIC_URLSERVER;
+    console.log(uri)
     useEffect(() => {
         // Fetch marcas from the server
         fetch(`${uri}/marcas`)

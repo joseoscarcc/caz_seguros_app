@@ -6,7 +6,7 @@ import React, {useEffect, useState} from 'react'
 
 const Hero = () => {
   const [marca, setMarca] = useState(""); // Initialize as an empty string
-  const uri = process.env.URLSERVER;
+  const uri = process.env.NEXT_PUBLIC_URLSERVER;
   useEffect(()=> {
     fetch(`${uri}/marcas`).then(
       response => response.json()
