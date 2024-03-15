@@ -8,7 +8,7 @@ const Hero = () => {
   const [marca, setMarca] = useState(""); // Initialize as an empty string
   const uri = process.env.URLSERVER;
   useEffect(()=> {
-    fetch(`${uri}/api/marcas`).then(
+    fetch(`${uri}/marcas`).then(
       response => response.json()
     ).then(
       data => {
