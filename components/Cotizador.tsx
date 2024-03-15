@@ -14,9 +14,11 @@ const Cotizador = () => {
     const [modelos, setModelos] = useState([]);
     const [modeloDisabled, setModeloDisabled] = useState(true); // Disable Modelo select input initially
 
+    const uri = process.env.URLSERVER;
+    
     useEffect(() => {
         // Fetch marcas from the server
-        fetch('http://localhost:3050/api/marcas')
+        fetch(uri+'/api/marcas')
             .then(response => response.json())
             .then(data => setMarcas(data.marca))
             .catch(error => console.error('Error fetching marcas:', error));
@@ -29,7 +31,7 @@ const Cotizador = () => {
         if (selectedMarca && year) {
             // Fetch descripcion_2 based on selected marca and year
             try {
-                const response = await fetch(`http://localhost:3050/api/model?marca=${selectedMarca}&year=${year}`);
+                const response = await fetch(uri+`/api/model?marca=${selectedMarca}&year=${year}`);
                 const data = await response.json();
                 setModelos(data.Modelos);
                 setModeloDisabled(false); // Enable Modelo select input
@@ -46,7 +48,7 @@ const Cotizador = () => {
         if (selectedYear && marca) {
             // Fetch descripcion_2 based on selected marca and year
             try {
-                const response = await fetch(`http://localhost:3050/api/model?marca=${marca}&year=${selectedYear}`);
+                const response = await fetch(uri+`/api/model?marca=${marca}&year=${selectedYear}`);
                 const data = await response.json();
                 console.log(data);
                 setModelos(data.Modelos);
@@ -62,7 +64,7 @@ const Cotizador = () => {
     
         const cotizacion = { nombre, correo, codigoPostal, tipoVehiculo, marca, year, modelo };
     
-        const response = await fetch('http://localhost:3050/api/submit', {
+        const response = await fetch(uri+'/api/submit', {
             method: 'POST',
             body: JSON.stringify(cotizacion),
             headers: {
@@ -97,7 +99,7 @@ const Cotizador = () => {
         year: string,
         modelo: string
       ) {
-        const phonenumber = "+526421148476"; // Replace with your phone number
+        const phonenumber = process.env.PHONENUMBER;
         
         const encodedName = encodeURIComponent(nombre);
         const encodedEmail = encodeURIComponent(correo);
