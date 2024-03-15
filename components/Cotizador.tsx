@@ -109,17 +109,24 @@ const Cotizador = () => {
         const encodedYear = encodeURIComponent(year);
         const encodedModelo = encodeURIComponent(modelo);
 
-        const url = `https://wa.me/${phonenumber}?text=*Nombre:* ${encodedName}%0a*Email:* ${encodedEmail}%0a*Código Postal:* ${encodedCP}%0a*Tipo de Vehículo:* ${encodedTV}%0a*Marca:* ${encodedMarca}%0a*Año:* ${encodedYear}%0a*Modelo:* ${encodedModelo}%0a%0aSolicitud de Cotización`;
-       
-    
+        const message = `*Nombre:* ${encodedName}%0a*Email:* ${encodedEmail}%0a*Código Postal:* ${encodedCP}%0a*Tipo de Vehículo:* ${encodedTV}%0a*Marca:* ${encodedMarca}%0a*Año:* ${encodedYear}%0a*Modelo:* ${encodedModelo}%0a%0aSolicitud de Cotización`;
+        const url = `https://wa.me/${phonenumber}/?text=${message}`;
+            
         console.log("Opening WhatsApp link:", url);
-        // Check if 'window' object is available
+
         if (typeof window !== 'undefined') {
-            // Open the WhatsApp message URL in a new tab
-            window.open(url, '_blank')?.focus(); // Use optional chaining to safely access focus()
+          // Check if the user is on a mobile device
+          const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+          if (isMobileDevice) {
+            // Open WhatsApp link in the WhatsApp app directly
+            window.location.href = `whatsapp://send?phone=${phonenumber}&text=${message}`;
+          } else {
+            // Open WhatsApp link in a new tab (fallback for non-mobile devices)
+            window.open(url, '_blank')?.focus();
+          }
         } else {
-            // Handle the case when 'window' is not available (e.g., running in a non-browser environment)
-            console.error('Window object is not available.');
+          console.error('Window object is not available.');
         }
     }
 
