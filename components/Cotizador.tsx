@@ -99,7 +99,7 @@ const Cotizador = () => {
         year: string,
         modelo: string
       ) {
-        const phonenumber = process.env.PHONENUMBER;
+        const phonenumber = process.env.NEXT_PUBLIC_PHONENUMBER;
         
         const encodedName = encodeURIComponent(nombre);
         const encodedEmail = encodeURIComponent(correo);
